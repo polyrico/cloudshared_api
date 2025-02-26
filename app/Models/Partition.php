@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class CloudCredential extends Model
+class Partition extends Model
 {
     use HasUuids;
 
@@ -14,7 +14,7 @@ class CloudCredential extends Model
      *
      * @var string|null
      */
-    protected $table = 'clouds_credentials';
+    protected $table = 'partitions';
 
     /**
      * The primary key for the model.
@@ -25,10 +25,8 @@ class CloudCredential extends Model
 
     /**
      * Fillable columns
-     *
-     * @var array
      */
     protected $fillable = [
-        'name', 'client_id', 'client_secret', 'scopes', 'redirect_url'
+        'user_cloud', 'store_entity', 'size', 'order', 'fileuuid'
     ];
 }
