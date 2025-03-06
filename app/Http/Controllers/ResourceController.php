@@ -3,24 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CloudCredentialCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class ResourceController extends Controller {
 
     protected static string $modelClass;
+    protected static string $resourceCollectionClass;
 
     /**
      * Display a listing of the resource.
-     *
-     * @return array
      */
-    protected function listResource(): array 
+    protected function listResource(): ResourceCollection
     {
-        return static::$modelClass::all()->toArray();
+        if (!isset(static::$resourceCollectionClass)) {
+            return static::$modelClass::all();
+        } else {
+            return new static::$resourceCollectionClass(static::$modelClass::paginate());
+        }
     }
 
-    protected function storeResource(FormRequest $request): array
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param FormRequest $request
+     */
+    protected function storeResource(FormRequest $request)
     {
         $data = $request->validated();
         $entity = static::$modelClass::create($data);
@@ -29,12 +39,23 @@ abstract class ResourceController extends Controller {
         return $entity->toArray();
     }
 
-    protected function showResource(Model $entity): array
+    /**
+     * Display the specified resource.
+     *
+     * @param Model $entity
+     */
+    protected function showResource(Model $entity)
     {
         return $entity->toArray();
     }
 
-    protected function updateResource(FormRequest $request, Model $entity): array
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param FormRequest $request
+     * @param Model $entity
+     */
+    protected function updateResource(FormRequest $request, Model $entity)
     {
         $data = $request->validated();
         $entity->fill($data);
@@ -43,7 +64,12 @@ abstract class ResourceController extends Controller {
         return $entity->toArray();
     }
 
-    protected function destroyResource(Model $entity): array
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Model $entity
+     */
+    protected function destroyResource(Model $entity)
     {
         $entity->deleteOrFail();
         return [];

@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\ResourceController;
 use App\Http\Requests\StoreCloudCredentialRequest;
 use App\Http\Requests\UpdateCloudCredentialRequest;
+use App\Http\Resources\CloudCredentialCollection;
 use App\Models\CloudCredential;
 
 class CloudCredentialsController extends ResourceController
 {
     protected static string $modelClass = CloudCredential::class;
-    protected static $request = [
-        'store' => StoreCloudCredentialRequest::class,
-        'update' => UpdateCloudCredentialRequest::class,
-    ];
+    protected static string $resourceCollectionClass = CloudCredentialCollection::class;
 
     /**
      * Display a listing of the resource.
