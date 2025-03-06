@@ -31,4 +31,11 @@ class CloudCredential extends Model
     protected $fillable = [
         'name', 'client_id', 'client_secret', 'scopes', 'redirect_url'
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['client_secret', 'redirect_url'];
 }
