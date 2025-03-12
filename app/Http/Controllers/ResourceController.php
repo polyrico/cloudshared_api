@@ -7,21 +7,22 @@ use App\Http\Resources\CloudCredentialCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class ResourceController extends Controller {
 
     protected static string $modelClass;
-    protected static string $resourceCollectionClass;
+    protected static string $collectionClass;
 
     /**
      * Display a listing of the resource.
      */
-    protected function listResource(): ResourceCollection
+    protected function listResource(?LengthAwarePaginator $data = NULL): ResourceCollection
     {
-        if (!isset(static::$resourceCollectionClass)) {
-            return static::$modelClass::all();
+        if (!isset(static::$collectionClass)) {
+            return $data ?? static::$modelClass::all();
         } else {
-            return new static::$resourceCollectionClass(static::$modelClass::paginate());
+            return new static::$collectionClass($data ?? static::$modelClass::paginate());
         }
     }
 
