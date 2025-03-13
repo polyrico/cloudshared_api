@@ -22,7 +22,18 @@ class UpdateStoreEntityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'parent_store_entity' => 'nullable|exists:store_entities,uuid',
+            'name' => 'max:50',
+            'extention' => 'max:5',
+            'size' => 'integer',
+            'driver' => 'required|exists:drivers,uuid'
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'driver' => $this->driver->uuid,
+        ]);
     }
 }

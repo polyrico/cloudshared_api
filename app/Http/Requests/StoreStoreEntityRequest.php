@@ -35,7 +35,7 @@ class StoreStoreEntityRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'driver' => $this->driver,
+            'driver' => $this->driver->uuid,
         ]);
     }
 }

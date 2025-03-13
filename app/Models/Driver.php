@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Driver extends Model
 {
@@ -29,4 +30,14 @@ class Driver extends Model
     protected $fillable = [
         'user', 'name'
     ];
+
+    /**
+     * Get the store entities for the current driver.
+     *
+     * @return HasMany
+     */
+    public function entities(): HasMany
+    {
+        return $this->hasMany(StoreEntity::class, 'driver', 'uuid');
+    }
 }

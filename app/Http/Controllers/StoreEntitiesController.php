@@ -28,7 +28,7 @@ class StoreEntitiesController extends ResourceController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStoreEntityRequest $request)
+    public function store(StoreStoreEntityRequest $request, Driver $driver)
     {
         return $this->storeResource($request);
     }
@@ -36,24 +36,27 @@ class StoreEntitiesController extends ResourceController
     /**
      * Display the specified resource.
      */
-    public function show(Driver $driver, StoreEntity $storeEntity)
+    public function show(Driver $driver, StoreEntity $entity)
     {
-        return $this->showResource($storeEntity);
+        return array_merge(
+            $entity->toArray(),
+            ['children' => $entity->children]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStoreEntityRequest $request, StoreEntity $storeEntity)
+    public function update(UpdateStoreEntityRequest $request, Driver $driver, StoreEntity $entity)
     {
-        return $this->updateResource($request, $storeEntity);
+        return $this->updateResource($request, $entity);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StoreEntity $storeEntity)
+    public function destroy(Driver $driver, StoreEntity $entity)
     {
-        return $this->destroyResource($storeEntity);
+        return $this->destroyResource($entity);
     }
 }

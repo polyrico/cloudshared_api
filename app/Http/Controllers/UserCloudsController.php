@@ -31,24 +31,24 @@ class UserCloudsController extends ResourceController
     /**
      * Display the specified resource.
      */
-    public function show(UserCloud $userCloud)
+    public function show(UserCloud $cloud)
     {
-        $this->showResource($userCloud);
+        $this->showResource($cloud);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserCloudRequest $request, UserCloud $userCloud)
+    public function update(UpdateUserCloudRequest $request, UserCloud $cloud)
     {
-        $this->updateResource($request, $userCloud);
+        $this->updateResource($request, $cloud);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserCloud $userCloud)
+    public function destroy(UserCloud $cloud)
     {
-        $this->destroyResource($userCloud);
+        $this->destroyResource($cloud);
     }
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePartitionRequest;
 use App\Http\Requests\UpdatePartitionRequest;
 use App\Http\Resources\PartitionCollection;
+use App\Models\Driver;
 use App\Models\Partition;
+use App\Models\StoreEntity;
 
 class PartitionsController extends ResourceController
 {
@@ -15,40 +17,16 @@ class PartitionsController extends ResourceController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Driver $driver, StoreEntity $entity)
     {
         return $this->listResource();
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePartitionRequest $request)
-    {
-        return $this->storeResource($request);
-    }
-
-    /**
      * Display the specified resource.
      */
-    public function show(Partition $partition)
+    public function show(Driver $driver, StoreEntity $entity, Partition $partition)
     {
         return $this->showResource($partition);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePartitionRequest $request, Partition $partition)
-    {
-        return $this->updateResource($request, $partition);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Partition $partition)
-    {
-        return $this->destroyResource($partition);
     }
 }
